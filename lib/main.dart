@@ -43,6 +43,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MovieGetDiscoverProvider(movieRepository))
       ],
+     
       
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

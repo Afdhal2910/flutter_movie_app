@@ -10,8 +10,6 @@ class MovieRepositoryImpl implements MovieRepository {
 
   MovieRepositoryImpl(this._dio);
 
-
-
   @override
   Future<Either<String, MovieResponseModel>> getDiscover({int page = 1}) async {
     

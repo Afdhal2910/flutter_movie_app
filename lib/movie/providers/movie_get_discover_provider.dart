@@ -36,6 +36,7 @@ class MovieGetDiscoverProvider with ChangeNotifier {
       }, (response) {
 
         print('Movies fetched successfully: ${response.results.length} movies found.');
+        print('Movies fetched successfully: ${response.results[0].posterPath}');
 
 
         _movies.clear();
@@ -46,7 +47,4 @@ class MovieGetDiscoverProvider with ChangeNotifier {
 
       });
   }
-
-
-
 }
