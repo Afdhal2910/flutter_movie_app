@@ -17,34 +17,30 @@ class MovieGetDiscoverProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    print('Fetching movie data...'); // Log when data fetching starts
-
-
     final result = await _movieRepository.getDiscover();
 
     result.fold(
       (errorMessage) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage),
-        ));
-
-        print('Error fetching movies: $errorMessage');
-
-        _isLoading = false;
-        notifyListeners();
-        return;
-
-      }, (response) {
-
-        print('Movies fetched successfully: ${response.results.length} movies found.');
-        print('Movies fetched successfully: ${response.results[0].posterPath}');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage)));
+      },
+      
+      (response) {
+         _movies.clear();
+         _movies.addAll(response.results);
+         _isLoading = false;
+         notifyListeners();
+         return null;   
 
 
-        _movies.clear();
-        _movies.addAll(response.results);
-        _isLoading = false;
-        notifyListeners();
-        return null;
+      }
+      
+    );
 
-      });
+
   }
+
+
+
+
 }

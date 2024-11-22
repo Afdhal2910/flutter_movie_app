@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
@@ -16,16 +15,13 @@ void main() {
 
   final dioOptions = BaseOptions(
     baseUrl: AppConstants.baseUrl,
-    queryParameters: {'api_key': AppConstants.apiKey},
+    queryParameters:  {'api_key': AppConstants.apiKey},
   );
 
   final Dio dio = Dio(dioOptions);
   final MovieRepository movieRepository = MovieRepositoryImpl(dio);
-  if (kDebugMode) {
-    print("masuk1 $movieRepository");
-  }
 
-  runApp(App(movieRepository: movieRepository,));
+  runApp(App(movieRepository: movieRepository));
   FlutterNativeSplash.remove();
 
 }
@@ -40,19 +36,22 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => MovieGetDiscoverProvider(movieRepository))
-      ],
-     
-      
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ChangeNotifierProvider(create: (_) => MovieGetDiscoverProvider(movieRepository),
         ),
-        home: const MoviePage(),
+      ],
+
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+          primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
+          home: const MoviePage(),
+
+      ),
+
+   
     );
   }
 }

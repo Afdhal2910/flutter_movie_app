@@ -3,34 +3,32 @@ import 'package:dio/dio.dart';
 import 'package:test1/movie/models/movie_model.dart';
 import 'package:test1/movie/repositories/movie_repository.dart';
 
-
 class MovieRepositoryImpl implements MovieRepository {
 
-  final Dio _dio ;
+  final Dio _dio;
 
   MovieRepositoryImpl(this._dio);
 
   @override
   Future<Either<String, MovieResponseModel>> getDiscover({int page = 1}) async {
-    
     try {
-      final results = await _dio.get(
+      final result = await _dio.get(
         '/discover/movie',
         queryParameters: {'page': page},
       );
 
-      if(results.statusCode == 200 && results.data != null) {
-        final model = MovieResponseModel.fromMap(results.data);
+      if (result.statusCode == 200 && result.data != null) {
+        final model = MovieResponseModel.fromMap(result.data);
         return Right(model);
-      }
+      } 
 
-      return const Left('Error get discover movies');
-    } on DioException catch (e) {
+      return const Left('Error get discover movie');
 
-        if (e.response != null) {
-        return Left(e.response.toString());
-        }
-        return const Left('Another error on get discover movies');
+    } catch (e) {
+      return const Left('Another error on get discover movies');
     }
   }
+
+ 
+
 }
