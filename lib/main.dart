@@ -42,10 +42,9 @@ class App extends StatelessWidget {
 
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Movie DB',
           theme: ThemeData(
           primarySwatch: Colors.blue,
-        useMaterial3: true,
       ),
           home: const MoviePage(),
 
